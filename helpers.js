@@ -1,26 +1,37 @@
-// WAIT FOR AN ELEMENT TO APPEAR AND DO SOMETHING...
+// WAIT FOR AN ELEMENT TO APPEAR AND DO SOMETHING
+// Usage: waitFor('#name', el => el.click())
 const waitFor = (sel, cb) => {
     const obs = new MutationObserver(() => {
-        const el = document.querySelector(sel);
-        if (el) cb(el), obs.disconnect();
-    });
-    obs.observe(document.body,{childList:true,subtree:true});
-};
+        const el = document.querySelector(sel)
+        if (el) cb(el), obs.disconnect()
+    })
+    obs.observe(document.body, { childList: true, subtree: true })
+}
+
+/***********************************************************************************************/
 
 // REPLACE ALL A HREFS IN PAGE DYNAMICALLY
+// Usage: rewriteLinks({ from: '/watch.php', to: '/video.php' })
 const rewriteLinks = o => {
-  if (!o) return;
-  const { from, to } = o;
+    if (!o) return
+    const { from, to } = o
+    const fix = a => a?.href?.includes(from) && (a.href = a.href.replace(from, to))
+    document.querySelectorAll('a[href]').forEach(fix)
+    new MutationObserver(m =>
+        m.forEach(x => x.addedNodes.forEach(n =>
+            n.tagName === 'A' ? fix(n) : n.querySelectorAll?.('a[href]').forEach(fix)
+        ))
+    ).observe(document, { childList: true, subtree: true })
+}
 
-  const fix = a => a?.href?.includes(from) && (a.href = a.href.replace(from, to));
-
-  document.querySelectorAll('a[href]').forEach(fix);
-  new MutationObserver(m =>
-    m.forEach(x => x.addedNodes.forEach(n =>
-      n.tagName === 'A' ? fix(n) : n.querySelectorAll?.('a[href]').forEach(fix)
-    ))
-  ).observe(document, { childList: true, subtree: true });
-};
+/***********************************************************************************************/
 
 // CHECK IF PAGE HAS THIS PARAM IN THE URL
-const hasURLParam = param => new URL(location.href).searchParams.has(param);
+// Usage: if (hasURLParam('s'))
+const hasURLParam = param => new URL(location.href).searchParams.has(param)
+
+/***********************************************************************************************/
+
+// REMOVE ANY ELEMENT
+// Usage: remove('.popup, .overlay')
+const remove = s => document.querySelectorAll(s).forEach(e => e.remove())
