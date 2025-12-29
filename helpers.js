@@ -37,11 +37,11 @@ const hasURLParam = param => new URL(location.href).searchParams.has(param)
 const remove = s => document.querySelectorAll(s).forEach(e => e.remove())
 
 // REMOVE ELEMENTS MATCHING MULTIPLE STYLE CONDITIONS
-// Usage: removeByStyle({ position: 'fixed', zIndex: '999', backgroundColor: 'transparent' })
-const removeByStyle = styles =>
-    document.querySelectorAll('*').forEach(e => {
-        const s = getComputedStyle(e)
-        Object.entries(styles).every(([k, v]) => s[k] === v) && e.remove()
+// Usage: removeByInlineStyle({ position: 'fixed', zIndex: '999', backgroundColor: 'transparent' })
+const removeByInlineStyle = styles =>
+    document.querySelectorAll('*[style]').forEach(e => {
+        const s = e.style
+        if (Object.entries(styles).every(([k, v]) => s[k] === v)) e.remove()
     })
 
 /***********************************************************************************************/
