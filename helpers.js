@@ -22,6 +22,5 @@ const rewriteLinks = o => {
   ).observe(document, { childList: true, subtree: true });
 };
 
-
 // CHECK IF PAGE HAS THIS PARAM IN THE URL
 const hasURLParam = param => new URL(location.href).searchParams.has(param);
