@@ -35,3 +35,13 @@ const hasURLParam = param => new URL(location.href).searchParams.has(param)
 // REMOVE ANY ELEMENT
 // Usage: remove('.popup, .overlay')
 const remove = s => document.querySelectorAll(s).forEach(e => e.remove())
+
+// REMOVE ELEMENTS MATCHING MULTIPLE STYLE CONDITIONS
+// Usage: removeByStyle({ position: 'fixed', zIndex: '9999', backgroundColor: 'transparent' })
+const removeByStyle = styles =>
+    document.querySelectorAll('*').forEach(e => {
+        const s = getComputedStyle(e)
+        Object.entries(styles).every(([k, v]) => s[k] === v) && e.remove()
+    })
+
+/***********************************************************************************************/
