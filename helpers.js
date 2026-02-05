@@ -1,6 +1,3 @@
-const $ = (sel) => document.querySelector(sel)
-const $$ = (sel) => document.querySelectorAll(sel)
-
 // WAIT FOR AN ELEMENT TO APPEAR AND DO SOMETHING
 // Usage: waitFor('#name', el => el.click())
 const waitFor = (sel, cb) => {
