@@ -1,5 +1,5 @@
-const $ = (sel, parent = document) => parent.querySelector(sel)
-const $$ = (sel, parent = document) => Array.from(parent.querySelectorAll(sel))
+const $ = (sel) => document.querySelector(sel)
+const $$ = (sel) => document.querySelectorAll(sel)
 
 // WAIT FOR AN ELEMENT TO APPEAR AND DO SOMETHING
 // Usage: waitFor('#name', el => el.click())
